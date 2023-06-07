@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="loginScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="61.0" layoutY="183.0" text="Password" textFill="WHITE">
+         <font>
+            <Font name="Trebuchet MS" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="110.0" text="Username" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="76.0" layoutY="42.0" style="-fx-font-weight: bold;" text="Welcome!" textFill="WHITE">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="loginPassword" layoutX="61.0" layoutY="213.0" prefHeight="27.0" prefWidth="181.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </PasswordField>
+      <TextField fx:id="loginUsername" layoutX="61.0" layoutY="138.0" prefHeight="27.0" prefWidth="181.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextField>
+      <Button fx:id="loginBtn" layoutX="114.0" layoutY="265.0" mnemonicParsing="false" onAction="#openPrincipalPage" prefHeight="29.0" prefWidth="74.0" style="-fx-background-color: #1db954;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="Trebuchet MS" size="15.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="149.0" fitWidth="224.0" layoutX="351.0" layoutY="39.0">
+         <image>
+            <Image url="@../../../../img/elder-listening.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="122.0" fitWidth="200.0" layoutX="314.0" layoutY="182.0">
+         <image>
+            <Image url="@../../../../img/baby-listening.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>
