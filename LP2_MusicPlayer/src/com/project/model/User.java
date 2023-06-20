@@ -6,11 +6,16 @@ public class User {
 	private String username;
 	private String password;
 	private boolean isVip;
-	private ArrayList<String> directories;
+	private ArrayList<Song> songs;
+	private String songsPath;
+	private String directoriesPath;
+	private ArrayList<Playlist> playlists;
+	private String playlistsPath;
 	
 	public User() {
-		this.directories = new ArrayList<String>();
 		this.isVip = false;
+		this.setSongs(new ArrayList<Song>());
+		this.setPlaylists(null);
 	}
 
 	public String getId() {
@@ -44,13 +49,45 @@ public class User {
 	public void setVip(boolean isVip) {
 		this.isVip = isVip;
 	}
-
-	public ArrayList<String> getDirectories() {
-		return directories;
+	
+	public ArrayList<Song> getSongs() {
+		return songs;
 	}
 
-	public void setDirectories(ArrayList<String> directories) {
-		this.directories = directories;
+	public void setSongs(ArrayList<Song> musics) {
+		this.songs = musics;
+	}
+
+	public ArrayList<Playlist> getPlaylists() {
+		return playlists;
+	}
+
+	public void setPlaylists(ArrayList<Playlist> playlists) {
+		this.playlists = playlists;
+	}
+
+	public String getSongsPath() {
+		return songsPath;
+	}
+
+	public void setSongsPath(String songsPath) {
+		this.songsPath = songsPath;
+	}
+
+	public String getDirectoriesPath() {
+		return directoriesPath;
+	}
+
+	public void setDirectoriesPath(String directoriesPath) {
+		this.directoriesPath = directoriesPath;
+	}
+
+	public String getPlaylistsPath() {
+		return playlistsPath;
+	}
+
+	public void setPlaylistsPath(String playlistsPath) {
+		this.playlistsPath = playlistsPath;
 	}
 	
 	
