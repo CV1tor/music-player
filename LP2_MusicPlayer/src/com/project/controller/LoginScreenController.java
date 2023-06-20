@@ -32,8 +32,6 @@ public class LoginScreenController {
 	@FXML
 	void openPrincipalPage(ActionEvent e) throws IOException {
 		
-		
-		
 		HashMap<String, String> aux = new HashMap<String, String>();
 			
 		aux.put(loginUsername.getText(), loginPassword.getText());
@@ -41,31 +39,29 @@ public class LoginScreenController {
 		if ( loginUsername.getText().equals("")|| loginPassword.getText().equals("")) {
 			System.out.println("Insira nome de usuário ou senha!");
 		}
-		else {
-			if (usersData.getUsers().contains(aux)) {
-				 	System.out.println("Login autorizado");
-				 
-			    	FXMLLoader loader = new FXMLLoader();
-			    	loader.setLocation(MainScreenController.class.getResource("/com/project/view/MainScreen.fxml"));
-			    	Pane page = (Pane) loader.load();
-			    	
-			    	// Criando um novo Stage
-			    	Stage mainStage = new Stage();
-			    	mainStage.setTitle("Media Player");
-			    	mainStage.setResizable(false);
-			    	Scene scene = new Scene(page);
-			    	mainStage.setScene(scene);
-			    	
-			    	// Setando o Controle 
-			    	MainScreenController controller = loader.getController();
-			    	controller.setMainStage(mainStage);
-			    	
-			    	mainStage.showAndWait();
-			}
-			else {
-				System.out.println("Usuário não cadastrado");
-			}
+		else if (usersData.getUsers().contains(aux)) {
+		 	System.out.println("Login autorizado");
+			 
+	    	FXMLLoader loader = new FXMLLoader();
+	    	loader.setLocation(MainScreenController.class.getResource("/com/project/view/MainScreen.fxml"));
+	    	Pane page = (Pane) loader.load();
+	    	
+	    	// Criando um novo Stage
+	    	Stage mainStage = new Stage();
+	    	mainStage.setTitle("Media Player");
+	    	mainStage.setResizable(false);
+	    	Scene scene = new Scene(page);
+	    	mainStage.setScene(scene);
+	    	
+	    	// Setando o Controle 
+	    	MainScreenController controller = loader.getController();
+	    	controller.setMainStage(mainStage);
+	    	
+	    	mainStage.showAndWait();
 		}
-		
+		else {
+			System.out.println("Usuário não cadastrado");
+		}
 	}
 }
+
