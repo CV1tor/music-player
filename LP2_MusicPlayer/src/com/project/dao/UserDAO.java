@@ -1,10 +1,14 @@
 package com.project.dao;
 import java.util.ArrayList;
+
+import com.project.model.Song;
 import com.project.model.User;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class UserDAO {
 	private ArrayList<User> users;
@@ -13,25 +17,24 @@ public class UserDAO {
 	public UserDAO() {
 		
 		this.users = new ArrayList<User>();
-		
 		try {
 			readUsersFile(new File("src/com/project/data/users.txt"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		finally {
-			if (users.size() != 0) {
-				for (User user : users) {
-					createFiles(user);
-				}
+		if (users.size() != 0) {
+			for (User user : users) {
+				createFiles(user);
 			}
 		}
 		
-		
-		
-		
 	}
+		
+		
+		
+		
+
 	
 	public static UserDAO getInstance() {
 		if (dataUser == null) {
@@ -42,7 +45,18 @@ public class UserDAO {
 	}
 	
 	public void addUser(User newUser) {
+		System.out.println(".:. Adicionando novo usuário... .:.");
+		try {
+			writeUsersFile(new File("src/com/project/data/users.txt"), newUser);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 		users.add(newUser);
+		System.out.println(".:. Usuário adicionado com sucesso! .:.");
+		
 	}
 	
 	public int searchId() {
@@ -59,16 +73,35 @@ public class UserDAO {
 	
 	// Lê as informações de users.txt e armazena elas em users
 	public void readUsersFile(File usersFile) throws IOException {
-		
 		FileReader file = new FileReader(usersFile);
-		BufferedReader readFile = new BufferedReader(file);
-		String line = readFile.readLine();
-		
-		while (line != null) {
-			addUser(makeUser(line));
-			line = readFile.readLine();
+		try (BufferedReader readFile = new BufferedReader(file)) {
+			String line = readFile.readLine();
+			
+			while (line != null) {
+				if (makeUser(line) == null) {
+					System.out.println(".:. Nenhum usuário cadastrado! .:.");
+					break;
+				}
+				users.add(makeUser(line));
+				
+				line = readFile.readLine();
+			}
 		}
 		
+	}
+	
+	public void writeUsersFile(File usersFile, User user) throws IOException {
+		FileWriter file = new FileWriter(usersFile, true);
+		BufferedWriter writeFile = new BufferedWriter(file);
+		
+		if (user.isVip()) {
+			writeFile.write(user.getUsername() + "," + user.getPassword() + "," + "vip\n");
+		}
+		else {
+			writeFile.write(user.getUsername() + "," + user.getPassword() + "\n");
+		}
+		
+		writeFile.close();
 	}
 	
 	// Separa e armazena as informações de users.txt em um objeto User
@@ -77,30 +110,39 @@ public class UserDAO {
 		User user = new User();
 		
 		String[] infos = line.split(",");
+		
+		if (infos.length <= 1) {
+			return null;
+		}
 		user.setUsername(infos[0]);
 		user.setPassword(infos[1]);
+		
+		if (infos.length > 3 && infos[2].equals("vip")) {
+			user.setVip(true);
+		}
 		
 		return user;
 	}
 	
 	public void createFiles(User user) {
 		
+		
 		// Criando pasta para usuário
 		File userDir = new File("src/com/project/data/users/" + user.getUsername());
 		File directories = new File(userDir.getAbsolutePath() + "/directories.txt");
 		File songs = new File(userDir.getAbsolutePath() + "/songs.txt");
 		
+		if (user.isVip()) {
+			File playlists = new File (userDir.getAbsolutePath() + "/playlists");
+			if (!playlists.exists()) {
+				playlists.mkdir();
+				
+			}
+		}
+		
 		if (!userDir.exists()) {
 			userDir.mkdir();
 			
-			
-			if (user.isVip()) {
-				File playlists = new File (userDir.getAbsolutePath() + "/playlists");
-				if (!playlists.exists()) {
-					playlists.mkdir();
-					user.setPlaylistsPath(playlists.getAbsolutePath());
-				}
-			}
 			
 			try {
 				directories.createNewFile();
@@ -115,7 +157,10 @@ public class UserDAO {
 		}
 		user.setSongsPath(songs.getAbsolutePath());
 		user.setDirectoriesPath(directories.getAbsolutePath());
+		
+		
 	}
+
 	
 	
 	

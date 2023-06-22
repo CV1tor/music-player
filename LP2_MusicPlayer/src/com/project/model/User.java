@@ -10,12 +10,11 @@ public class User {
 	private String songsPath;
 	private String directoriesPath;
 	private ArrayList<Playlist> playlists;
-	private String playlistsPath;
 	
 	public User() {
 		this.isVip = false;
-		this.setSongs(new ArrayList<Song>());
-		this.setPlaylists(null);
+		this.songs = new ArrayList<Song>();
+		this.playlists = new ArrayList<Playlist>();
 	}
 
 	public String getId() {
@@ -81,15 +80,6 @@ public class User {
 	public void setDirectoriesPath(String directoriesPath) {
 		this.directoriesPath = directoriesPath;
 	}
-
-	public String getPlaylistsPath() {
-		return playlistsPath;
-	}
-
-	public void setPlaylistsPath(String playlistsPath) {
-		this.playlistsPath = playlistsPath;
-	}
-	
 	
 	
 }

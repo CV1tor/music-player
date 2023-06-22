@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -15,7 +16,10 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.controller.MainScreenController">
    <children>
-      <TitledPane id="songsDisplay" animated="false" layoutX="147.0" layoutY="41.0" prefHeight="218.0" prefWidth="131.0" text="Songs" />
+      <TitledPane id="songsDisplay" animated="false" layoutX="147.0" layoutY="41.0" prefHeight="218.0" prefWidth="131.0" text="Songs">
+         <content>
+            <ListView id="songsList" prefHeight="200.0" prefWidth="200.0" />
+         </content></TitledPane>
       <MenuBar prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #1db954;">
         <menus>
           <Menu mnemonicParsing="false" text="File">

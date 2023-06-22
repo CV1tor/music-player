@@ -17,6 +17,7 @@ import com.project.model.User;
 
 public class LoginScreenController {
 	private UserDAO usersData = new UserDAO();
+	private Stage loginStage;
 	
 	@FXML
 	private TextField loginUsername;
@@ -27,18 +28,31 @@ public class LoginScreenController {
 	@FXML
 	private Button loginBtn;
 	
+	@FXML
+	private Button registerBtn;
+	
+	public void setLoginStage(Stage loginStage) {
+		this.loginStage = loginStage;
+	}
+	
+	public Stage getLoginStage() {
+		return loginStage;
+	}
+	
+
+	
 	
 	@FXML
 	boolean openPrincipalPage(ActionEvent e) throws IOException {
 		if (loginUsername.getText().equals("") || loginPassword.getText().equals("")) {
-			System.out.println("Preencha os campos antes de logar!");
+			System.out.println(".:. Preencha os campos antes de logar! .:.");
 			return false;
 		}
 		
 		for (User user : usersData.getUsers()) {
 			if (user.getUsername().equals(loginUsername.getText()) && user.getPassword().equals(loginPassword.getText())) {
 				
-				System.out.println("Login autorizado");
+				System.out.println(".:. Login autorizado .:.");
 				
 				 
 		    	FXMLLoader loader = new FXMLLoader();
@@ -56,7 +70,7 @@ public class LoginScreenController {
 		    	MainScreenController controller = loader.getController();
 		    	controller.setMainStage(mainStage);
 		    	controller.setCurrentUser(user);
-		    	
+		    	loginStage.close();
 		    	mainStage.showAndWait();
 		    	
 				
@@ -66,9 +80,58 @@ public class LoginScreenController {
 		}
 		
 		
-		System.out.println("Usuario não cadastrado!");
+		System.out.println(".:. Usuario não cadastrado! .:.");
 		return false;
 		
 	}
+	
+	@FXML
+	void openRegisterPage() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(MainScreenController.class.getResource("/com/project/view/RegisterScreen.fxml"));
+    	Pane page = (Pane) loader.load();
+    	
+    	// Criando um novo Stage
+    	Stage registerStage = new Stage();
+    	registerStage.setTitle("Sign up");
+    	registerStage.setResizable(false);
+    	Scene scene = new Scene(page);
+    	registerStage.setScene(scene);
+    	
+    	RegisterScreenController controller = loader.getController();
+    	controller.setRegisterStage(registerStage);
+    	
+    	registerStage.showAndWait();
+	}
+	
+	@FXML
+	void initialize() throws IOException {
+		if (usersData.getUsers().size() == 0) {
+			System.out.println(".:. Não existem usuários cadastrados no banco .:.");
+			System.out.println(".:. Redirecionando para tela de cadastro... .:.");
+			FXMLLoader loader = new FXMLLoader();
+	    	loader.setLocation(MainScreenController.class.getResource("/com/project/view/RegisterScreen.fxml"));
+	    	Pane page = (Pane) loader.load();
+	    	
+	    	// Criando um novo Stage
+	    	Stage registerStage = new Stage();
+	    	registerStage.setTitle("Sign up");
+	    	registerStage.setResizable(false);
+	    	Scene scene = new Scene(page);
+	    	registerStage.setScene(scene);
+	    	
+	    	RegisterScreenController controller = loader.getController();
+	    	controller.setRegisterStage(registerStage);
+	    	
+	    	
+	    	registerStage.show();
+	    	
+	    	
+	   
+		}
+	}
+
+	
+	
 }
 
