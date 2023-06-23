@@ -1,4 +1,1 @@
-admin,123,vip
-shakira,000
-tste,123
-user,any
+admin,123,1,vip

@@ -12,12 +12,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import com.project.dao.UserDAO;
+import com.project.model.CurrentUser;
 import com.project.model.User;
 
 
 public class LoginScreenController {
-	private UserDAO usersData = new UserDAO();
+	private UserDAO usersData;
 	private Stage loginStage;
+	private CurrentUser currentUser;
 	
 	@FXML
 	private TextField loginUsername;
@@ -44,6 +46,7 @@ public class LoginScreenController {
 	
 	@FXML
 	boolean openPrincipalPage(ActionEvent e) throws IOException {
+		
 		if (loginUsername.getText().equals("") || loginPassword.getText().equals("")) {
 			System.out.println(".:. Preencha os campos antes de logar! .:.");
 			return false;
@@ -53,8 +56,8 @@ public class LoginScreenController {
 			if (user.getUsername().equals(loginUsername.getText()) && user.getPassword().equals(loginPassword.getText())) {
 				
 				System.out.println(".:. Login autorizado .:.");
+				CurrentUser.setUser(user);
 				
-				 
 		    	FXMLLoader loader = new FXMLLoader();
 		    	loader.setLocation(MainScreenController.class.getResource("/com/project/view/MainScreen.fxml"));
 		    	Pane page = (Pane) loader.load();
@@ -69,7 +72,6 @@ public class LoginScreenController {
 		    	// Setando o Controle 
 		    	MainScreenController controller = loader.getController();
 		    	controller.setMainStage(mainStage);
-		    	controller.setCurrentUser(user);
 		    	loginStage.close();
 		    	mainStage.showAndWait();
 		    	
@@ -87,6 +89,7 @@ public class LoginScreenController {
 	
 	@FXML
 	void openRegisterPage() throws IOException {
+		
 		FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(MainScreenController.class.getResource("/com/project/view/RegisterScreen.fxml"));
     	Pane page = (Pane) loader.load();
@@ -100,12 +103,13 @@ public class LoginScreenController {
     	
     	RegisterScreenController controller = loader.getController();
     	controller.setRegisterStage(registerStage);
-    	
+    	loginStage.close();
     	registerStage.showAndWait();
 	}
 	
 	@FXML
 	void initialize() throws IOException {
+		usersData = UserDAO.getInstance();
 		if (usersData.getUsers().size() == 0) {
 			System.out.println(".:. Não existem usuários cadastrados no banco .:.");
 			System.out.println(".:. Redirecionando para tela de cadastro... .:.");
@@ -124,7 +128,8 @@ public class LoginScreenController {
 	    	controller.setRegisterStage(registerStage);
 	    	
 	    	
-	    	registerStage.show();
+	    	registerStage.showAndWait();
+	    	
 	    	
 	    	
 	   

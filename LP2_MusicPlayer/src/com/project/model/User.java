@@ -10,6 +10,7 @@ public class User {
 	private String songsPath;
 	private String directoriesPath;
 	private ArrayList<Playlist> playlists;
+	private String playlistsPath;
 	
 	public User() {
 		this.isVip = false;
@@ -25,13 +26,7 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
-	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	public String getPassword() {
 		return password;
@@ -80,6 +75,24 @@ public class User {
 	public void setDirectoriesPath(String directoriesPath) {
 		this.directoriesPath = directoriesPath;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPlaylistsPath() {
+		return playlistsPath;
+	}
+
+	public void setPlaylistsPath(String playlistsPath) {
+		this.playlistsPath = playlistsPath;
+	}
+
+	
 	
 	
 }

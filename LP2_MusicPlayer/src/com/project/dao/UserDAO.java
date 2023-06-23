@@ -59,8 +59,8 @@ public class UserDAO {
 		
 	}
 	
-	public int searchId() {
-		return users.size();
+	public int userId() {
+		return users.size() + 1;
 	}
 
 	public ArrayList<User> getUsers() {
@@ -74,31 +74,31 @@ public class UserDAO {
 	// Lê as informações de users.txt e armazena elas em users
 	public void readUsersFile(File usersFile) throws IOException {
 		FileReader file = new FileReader(usersFile);
-		try (BufferedReader readFile = new BufferedReader(file)) {
-			String line = readFile.readLine();
+		BufferedReader reader = new BufferedReader(file);
+		String line = reader.readLine();
 			
-			while (line != null) {
-				if (makeUser(line) == null) {
-					System.out.println(".:. Nenhum usuário cadastrado! .:.");
-					break;
-				}
-				users.add(makeUser(line));
-				
-				line = readFile.readLine();
+		while (line != null) {
+			if (makeUser(line) == null) {
+				System.out.println(".:. Nenhum usuário cadastrado! .:.");
+				break;
 			}
+			users.add(makeUser(line));
+			
+			line = reader.readLine();
 		}
-		
 	}
+		
+
 	
 	public void writeUsersFile(File usersFile, User user) throws IOException {
 		FileWriter file = new FileWriter(usersFile, true);
 		BufferedWriter writeFile = new BufferedWriter(file);
 		
 		if (user.isVip()) {
-			writeFile.write(user.getUsername() + "," + user.getPassword() + "," + "vip\n");
+			writeFile.write(user.getUsername() + "," + user.getPassword() + "," + userId() + "," +  "vip\n");
 		}
 		else {
-			writeFile.write(user.getUsername() + "," + user.getPassword() + "\n");
+			writeFile.write(user.getUsername() + "," + user.getPassword() + "," + userId() + "\n");
 		}
 		
 		writeFile.close();
@@ -116,8 +116,9 @@ public class UserDAO {
 		}
 		user.setUsername(infos[0]);
 		user.setPassword(infos[1]);
+		user.setId(infos[2]);
 		
-		if (infos.length > 3 && infos[2].equals("vip")) {
+		if (infos.length > 3 && infos[3].equals("vip")) {
 			user.setVip(true);
 		}
 		
@@ -134,6 +135,7 @@ public class UserDAO {
 		
 		if (user.isVip()) {
 			File playlists = new File (userDir.getAbsolutePath() + "/playlists");
+			user.setPlaylistsPath(playlists.getAbsolutePath());
 			if (!playlists.exists()) {
 				playlists.mkdir();
 				

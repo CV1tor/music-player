@@ -3,6 +3,7 @@ module LP2_MusicPlayer {
 	requires transitive javafx.graphics;
 	requires javafx.fxml;
 	requires javafx.base;
+	requires jlayer;
 	
 	exports com.project;
 	

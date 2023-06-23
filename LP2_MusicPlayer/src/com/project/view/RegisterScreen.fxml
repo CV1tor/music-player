@@ -58,7 +58,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <CheckBox fx:id="vipCheck" layoutX="61.0" layoutY="222.0" mnemonicParsing="false" onAction="#setVipUser" text="VIP User" textFill="WHITE">
+      <CheckBox fx:id="vipCheck" layoutX="61.0" layoutY="222.0" mnemonicParsing="false" text="VIP User" textFill="WHITE">
          <font>
             <Font name="Trebuchet MS" size="15.0" />
          </font>

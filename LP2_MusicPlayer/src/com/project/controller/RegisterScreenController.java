@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 public class RegisterScreenController {
 	private Stage registerStage;
-	private UserDAO usersData = new UserDAO();
+	private UserDAO usersData = UserDAO.getInstance();
 	
 	@FXML
 	private TextField registerUsername;
@@ -47,6 +47,7 @@ public class RegisterScreenController {
 	
 	@FXML
 	boolean openLogin(ActionEvent e) throws IOException {
+	
 		if (registerUsername.getText().equals("") || registerPassword.getText().equals("")) {
 			System.out.println(".:. Preencha todos os campos para cadastro! .:.");
 			return false;
@@ -66,6 +67,7 @@ public class RegisterScreenController {
 			newUser.setVip(true);
 		}
 		usersData.addUser(newUser);
+		usersData.createFiles(newUser);
 		
 		
 		FXMLLoader loader = new FXMLLoader();
@@ -81,9 +83,9 @@ public class RegisterScreenController {
     	
     	LoginScreenController controller = loader.getController();
     	controller.setLoginStage(loginStage);
-    	
     	registerStage.close();
-    	loginStage.showAndWait();
+    	
+    
     	
   
     	

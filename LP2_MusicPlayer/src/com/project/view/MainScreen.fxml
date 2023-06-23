@@ -8,7 +8,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -16,10 +16,6 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.controller.MainScreenController">
    <children>
-      <TitledPane id="songsDisplay" animated="false" layoutX="147.0" layoutY="41.0" prefHeight="218.0" prefWidth="131.0" text="Songs">
-         <content>
-            <ListView id="songsList" prefHeight="200.0" prefWidth="200.0" />
-         </content></TitledPane>
       <MenuBar prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #1db954;">
         <menus>
           <Menu mnemonicParsing="false" text="File">
@@ -39,14 +35,12 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TitledPane id="playlistSongsDisplay" animated="false" layoutX="300.0" layoutY="41.0" prefHeight="218.0" prefWidth="131.0" text="Current Playlist" />
-      <ProgressBar layoutX="103.0" layoutY="366.0" prefHeight="17.0" prefWidth="350.0" progress="0.0">
+      <ProgressBar layoutX="145.0" layoutY="352.0" prefHeight="17.0" prefWidth="382.0" progress="0.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </ProgressBar>
-      <TitledPane id="playlistsDisplay" animated="false" layoutX="458.0" layoutY="161.0" prefHeight="97.0" prefWidth="117.0" text="Playlists" />
-      <ImageView id="iconAddDirectory" fitHeight="39.0" fitWidth="36.0" layoutX="54.0" layoutY="93.0" onMouseClicked="#addDirectory" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="iconAddDirectory" fx:id="iconAddDirectory" fitHeight="39.0" fitWidth="36.0" layoutX="54.0" layoutY="93.0" onMouseClicked="#addDirectory" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/icons/add-icon.png" />
          </image>
@@ -58,7 +52,7 @@
          <font>
             <Font name="Trebuchet MS" size="12.0" />
          </font></Label>
-      <ImageView id="iconAddFile" fitHeight="39.0" fitWidth="36.0" layoutX="54.0" layoutY="168.0" onMouseClicked="#addFile" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="iconAddFile" fx:id="iconAddFile" fitHeight="39.0" fitWidth="36.0" layoutX="54.0" layoutY="168.0" onMouseClicked="#addFile" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/icons/add-icon.png" />
          </image>
@@ -67,7 +61,7 @@
          </cursor>
       </ImageView>
       <Label layoutX="51.0" layoutY="212.0" text="Add file" textAlignment="CENTER" />
-      <ImageView id="iconAddPlaylist" fitHeight="30.0" fitWidth="25.0" layoutX="465.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="iconAddPlaylist" fitHeight="30.0" fitWidth="25.0" layoutX="458.0" layoutY="287.0" onMouseClicked="#addPlaylist" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/icons/add-icon.png" />
          </image>
@@ -75,17 +69,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Label layoutX="495.0" layoutY="273.0" text="New playlist" textAlignment="CENTER" />
-      <ImageView id="profilePic" fitHeight="106.0" fitWidth="117.0" layoutX="464.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/icons/default-profile-pic.jpg" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <Separator layoutY="301.0" prefHeight="17.0" prefWidth="600.0" />
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="224.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true">
+      <Label layoutX="488.0" layoutY="291.0" text="New playlist" textAlignment="CENTER" />
+      <Separator layoutY="316.0" prefHeight="17.0" prefWidth="600.0" />
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="18.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/icons/previous-icon.png" />
          </image>
@@ -93,7 +79,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="259.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="playerPlay" fitHeight="39.0" fitWidth="39.0" layoutX="53.0" layoutY="341.0" onMouseClicked="#playMusic" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/icons/play-icon.png" />
          </image>
@@ -101,7 +87,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="308.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="102.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/icons/skip-icon.png" />
          </image>
@@ -109,5 +95,44 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
+      <ListView fx:id="songsList" layoutX="136.0" layoutY="87.0" prefHeight="194.0" prefWidth="139.0" />
+      <ListView layoutX="285.0" layoutY="87.0" prefHeight="194.0" prefWidth="139.0" />
+      <Label alignment="CENTER" layoutX="136.0" layoutY="62.0" prefHeight="25.0" prefWidth="139.0" text="Songs" textAlignment="CENTER">
+         <font>
+            <Font name="Trebuchet MS Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelPlaylist" alignment="CENTER" layoutX="285.0" layoutY="62.0" prefHeight="25.0" prefWidth="139.0" text="Current Playlist" textAlignment="CENTER">
+         <font>
+            <Font name="Trebuchet MS Bold" size="14.0" />
+         </font>
+      </Label>
+      <ListView fx:id="playlistsList" layoutX="454.0" layoutY="188.0" prefHeight="93.0" prefWidth="106.0" />
+      <ImageView fitHeight="106.0" fitWidth="117.0" layoutX="454.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/icons/default-profile-pic.jpg" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="453.0" layoutY="163.0" prefHeight="25.0" prefWidth="106.0" text="Playlists" textAlignment="CENTER">
+         <font>
+            <Font name="Trebuchet MS Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="vipLabel" layoutX="458.0" layoutY="32.0" prefHeight="25.0" prefWidth="25.0" text="VIP" textFill="#75ff9a">
+         <font>
+            <Font name="Trebuchet MS Bold" size="16.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+      <Label fx:id="labelUser" alignment="CENTER" layoutX="454.0" layoutY="137.0" prefHeight="25.0" prefWidth="106.0" text="User" textAlignment="CENTER">
+         <font>
+            <Font name="Trebuchet MS" size="14.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
