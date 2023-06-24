@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="460.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.controller.CreatePlaylistController">
+   <children>
+      <Label alignment="CENTER" layoutX="25.0" layoutY="41.0" prefHeight="19.0" prefWidth="204.0" text="Playlist Name" textFill="WHITE">
+         <font>
+            <Font name="Trebuchet MS Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="playlistName" layoutX="23.0" layoutY="66.0" prefHeight="30.0" prefWidth="204.0" text="New Playlist">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Button fx:id="createBtn" layoutX="25.0" layoutY="118.0" mnemonicParsing="false" onAction="#createPlaylist" style="-fx-background-color: #1db954;" text="Create" textFill="WHITE">
+         <font>
+            <Font name="Trebuchet MS" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelBtn" layoutX="173.0" layoutY="118.0" mnemonicParsing="false" onAction="#cancelCreation" style="-fx-background-color: #1db954;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font name="Trebuchet MS" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="newSongBtn" layoutX="91.0" layoutY="118.0" mnemonicParsing="false" onAction="#addSongToPlaylist" style="-fx-background-color: #1db954;" text="New song" textFill="WHITE">
+         <font>
+            <Font name="Trebuchet MS" size="13.0" />
+         </font>
+      </Button>
+      <ListView fx:id="playlistSongs" layoutX="257.0" layoutY="16.0" prefHeight="151.0" prefWidth="175.0" />
+   </children>
+</Pane>

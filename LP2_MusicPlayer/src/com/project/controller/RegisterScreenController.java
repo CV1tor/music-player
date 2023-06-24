@@ -71,7 +71,7 @@ public class RegisterScreenController {
 		
 		
 		FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(MainScreenController.class.getResource("/com/project/view/LoginScreen.fxml"));
+    	loader.setLocation(LoginScreenController.class.getResource("/com/project/view/LoginScreen.fxml"));
     	Pane page = (Pane) loader.load();
     	
     	// Criando um novo Stage

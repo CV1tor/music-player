@@ -10,10 +10,14 @@ import com.project.controller.LoginScreenController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
@@ -44,6 +48,7 @@ public class MainScreenController {
 	private CurrentUser currentUser;
 	private PausablePlayer player;
 	private boolean playIsClicked = false;
+	private boolean isPaused = false;
 	
 	@FXML
 	private ImageView iconAddDirectory;
@@ -151,18 +156,20 @@ public class MainScreenController {
 		User current = CurrentUser.getUser();
 		
 		if (current.isVip()) {
-			DirectoryChooser directoryChooser = new DirectoryChooser();
-			directoryChooser.setTitle("Select a empty folder to create a playlist");
-			File playlist = directoryChooser.showDialog(mainStage);
-			Playlist newPlaylist= new Playlist();
-			
-			newPlaylist.setName(playlist.getName());
-			newPlaylist.setPath(current.getPlaylistsPath());
-			
-			
-			userPlaylists.createPlaylist(current, newPlaylist.getName());
-			userPlaylists.addPlaylist(newPlaylist);
-			playlistsList.getItems().add(newPlaylist.getName());
+			FXMLLoader loader = new FXMLLoader();
+	    	loader.setLocation(CreatePlaylistController.class.getResource("/com/project/view/CreatePlaylistScreen.fxml"));
+	    	Pane page = (Pane) loader.load();
+	    	
+	    	// Criando um novo Stage
+	    	Stage createPlaylistStage = new Stage();
+	    	createPlaylistStage.setTitle("Create a new playlist");
+	    	createPlaylistStage.setResizable(false);
+	    	Scene scene = new Scene(page);
+	    	createPlaylistStage.setScene(scene);
+	    	
+	    	CreatePlaylistController controller = loader.getController();
+	    	controller.setCreatePlaylistStage(createPlaylistStage);
+	    	createPlaylistStage.showAndWait();
 			
 			
 			
@@ -229,25 +236,44 @@ public class MainScreenController {
 	
 	@FXML
 	void playMusic() throws JavaLayerException {
-		if (playClicked()) {
+		playClicked();
+		
+		if (playIsClicked) {
 			if (player != null) {
 				player.play();
-				playClicked();
 			}
 		}
 		else {
-			System.out.println("oi");
+			playPaused();
+			if (isPaused) {
+				player.resume();
+			}
 			player.pause();
+			
 		}
 	}
 	
 	boolean playClicked() {
+		File imageFile;
 		if (!playIsClicked) {
+			imageFile = new File("src/com/project/img/icons/pause-icon.png");
+			playerPlay.setImage(new Image(imageFile.getAbsolutePath()));
 			playIsClicked = true;
 			return playIsClicked;
 		}
 		playIsClicked = false;
+		imageFile = new File("src/com/project/img/icons/play-icon.png");
+		playerPlay.setImage(new Image(imageFile.getAbsolutePath()));
 		return playIsClicked;
+	}
+	
+	boolean playPaused() {
+		if(!isPaused) {
+			isPaused = true;
+			return isPaused;
+		}
+		isPaused = false;
+		return isPaused;
 	}
 	
 	

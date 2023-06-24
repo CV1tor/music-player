@@ -17,7 +17,7 @@ import com.project.model.User;
 
 
 public class LoginScreenController {
-	private UserDAO usersData;
+	private UserDAO usersData =  UserDAO.getInstance();
 	private Stage loginStage;
 	private CurrentUser currentUser;
 	
@@ -91,7 +91,7 @@ public class LoginScreenController {
 	void openRegisterPage() throws IOException {
 		
 		FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(MainScreenController.class.getResource("/com/project/view/RegisterScreen.fxml"));
+    	loader.setLocation(RegisterScreenController.class.getResource("/com/project/view/RegisterScreen.fxml"));
     	Pane page = (Pane) loader.load();
     	
     	// Criando um novo Stage
@@ -103,18 +103,17 @@ public class LoginScreenController {
     	
     	RegisterScreenController controller = loader.getController();
     	controller.setRegisterStage(registerStage);
-    	loginStage.close();
     	registerStage.showAndWait();
 	}
 	
 	@FXML
 	void initialize() throws IOException {
-		usersData = UserDAO.getInstance();
+	
 		if (usersData.getUsers().size() == 0) {
 			System.out.println(".:. Não existem usuários cadastrados no banco .:.");
 			System.out.println(".:. Redirecionando para tela de cadastro... .:.");
 			FXMLLoader loader = new FXMLLoader();
-	    	loader.setLocation(MainScreenController.class.getResource("/com/project/view/RegisterScreen.fxml"));
+	    	loader.setLocation(RegisterScreenController.class.getResource("/com/project/view/RegisterScreen.fxml"));
 	    	Pane page = (Pane) loader.load();
 	    	
 	    	// Criando um novo Stage
@@ -126,8 +125,6 @@ public class LoginScreenController {
 	    	
 	    	RegisterScreenController controller = loader.getController();
 	    	controller.setRegisterStage(registerStage);
-	    	
-	    	
 	    	registerStage.showAndWait();
 	    	
 	    	

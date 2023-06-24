@@ -79,7 +79,6 @@ public class UserDAO {
 			
 		while (line != null) {
 			if (makeUser(line) == null) {
-				System.out.println(".:. Nenhum usuário cadastrado! .:.");
 				break;
 			}
 			users.add(makeUser(line));

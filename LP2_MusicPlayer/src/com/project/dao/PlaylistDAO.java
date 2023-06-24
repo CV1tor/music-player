@@ -65,7 +65,7 @@ public class PlaylistDAO {
 		
 		File[] files = playlistDirectory.listFiles();
 		
-		if (files.length > 0) {
+		if (files != null) {
 			for (File file : files) {
 				FileReader readFile = new FileReader(file);
 				BufferedReader reader = new BufferedReader(readFile);
